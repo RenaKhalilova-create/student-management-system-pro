@@ -54,6 +54,31 @@ void deleteStudent(){
     cout<< "Student not found\n";
 }
 
+void saveToFile(){
+    ofstream file("students.txt");
+
+    for(const auto& s: students){
+        file<< s.name << " " << s.age <<endl;
+    }
+
+    file.close();
+    cout<< "Data saved to file\n";
+}
+
+void loadFromFile(){
+    ifstream file("students.txt");
+
+    students.clear();
+    
+    Student s;
+    while(file>> s.name >> s.age){
+        students.push_back(s);
+    }
+
+    file.close();
+    cout<< "Data loaded from file\n";
+}
+
 int main(){
     int choice;
 
@@ -62,7 +87,9 @@ int main(){
         cout<< "2. Show students\n";
         cout<< "3. Find student\n";
         cout<< "4. Delete student\n";
-        cout<< "5. Exit\n";
+        cout<< "5. Save to file\n";
+        cout<< "6. Load from file\n";
+        cout<< "7. Exit\n";
 
         cin>> choice;
 
@@ -70,7 +97,9 @@ int main(){
         else if(choice == 2) showStudents();
         else if(choice == 3) findStudent();
         else if(choice == 4) deleteStudent();
-        else if(choice == 5) break;
+        else if(choice == 5) saveToFile();
+        else if(choice == 6) loadFromFile();
+        else if(choice == 7) break;
     }
     return 0;
 }
